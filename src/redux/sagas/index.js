@@ -1,25 +1,39 @@
 import {
-  take,
   takeEvery, // Срабатывает каждый раз
-  takeLatest, // Срабатывает в конце и выдает всю серию действий на элементе (в данном слуючае нажатие на кнопку счетчика)
-  takeLeading,
-  select,
   put,
   call,
   fork,
 } from "@redux-saga/core/effects";
-import { GET_NEWS } from "../constants";
+import {
+  GET_NEWS,
+  SET_POPULAR_NEWS_ERROR,
+  SET_LATEST_NEWS_ERROR,
+} from "../constants";
 import { getLatestNews, getPopularNews } from "../../api";
 import { setLatestNews, setPopularNews } from "../actions/actionCreator";
 
 export function* handleLatestNews() {
-  const { hits } = yield call(getLatestNews, "react");
-  yield put(setLatestNews(hits));
+  try {
+    const { hits } = yield call(getLatestNews, "react");
+    yield put(setLatestNews(hits));
+  } catch {
+    yield put({
+      type: SET_LATEST_NEWS_ERROR,
+      payload: "I falldown in handleLatestNews!!!",
+    });
+  }
 }
 
 export function* handlePopularNews() {
-  const { hits } = yield call(getPopularNews);
-  yield put(setPopularNews(hits));
+  try {
+    const { hits } = yield call(getPopularNews);
+    yield put(setPopularNews(hits));
+  } catch {
+    yield put({
+      type: SET_POPULAR_NEWS_ERROR,
+      payload: "I falldown in handlePopularNews!!!",
+    });
+  }
 }
 
 export function* handleNews() {

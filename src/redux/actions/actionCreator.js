@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type/index.js";
 import { SET_LATEST_NEWS, SET_POPULAR_NEWS, GET_NEWS } from "../constants.js";
 
 export const setLatestNews = (payload) => ({ type: SET_LATEST_NEWS, payload });

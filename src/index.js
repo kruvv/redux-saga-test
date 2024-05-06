@@ -5,12 +5,50 @@ import store from "./redux/store";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { Router } from "react-router";
+import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+// import { createBrowserHistory } from "history";
+// import {createBrouserHistory} from '@rem'
+import Home from "./pages/home/home";
+import LatestNews from "./pages/latest-news/latest-news";
+import PopularNews from "./pages/popular-news/popular-news";
+
+// const history = createBrowserHistory();
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/latest-news",
+    element: <LatestNews />,
+  },
+  {
+    path: "/popular-news",
+    element: <PopularNews />,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router}>
+        {/*  <App> */}
+        {/* <Switch> */}
+        {/*   <Route path="/" exact> */}
+        {/*     <Home /> */}
+        {/*   </Route> */}
+        {/*   <Route path="/latest-news"> */}
+        {/*     <LatestNews /> */}
+        {/*   </Route> */}
+        {/*   <Route path="/popular-news"> */}
+        {/*     <PoularNews /> */}
+        {/*   </Route> */}
+        {/* </Switch */}
+        {/* </App> */}
+      </RouterProvider>
     </Provider>
   </React.StrictMode>,
 );
