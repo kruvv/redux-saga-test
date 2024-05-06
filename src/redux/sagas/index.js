@@ -4,37 +4,32 @@ import {
   takeLatest, // Срабатывает в конце и выдает всю серию действий на элементе (в данном слуючае нажатие на кнопку счетчика)
   takeLeading,
   select,
+  put,
+  call,
+  fork,
 } from "@redux-saga/core/effects";
-import { INCREASE_COUNT, DECREASE_COUNT, GET_LATEST_NEWS } from "../constants";
-import { getLatestNews } from "../../api";
+import { GET_NEWS } from "../constants";
+import { getLatestNews, getPopularNews } from "../../api";
+import { setLatestNews, setPopularNews } from "../actions/actionCreator";
 
-const delay = (time) =>
-  new Promise((res, rej) => {
-    setTimeout(res, time * 1000);
-  });
+export function* handleLatestNews() {
+  const { hits } = yield call(getLatestNews, "react");
+  yield put(setLatestNews(hits));
+}
 
-export function* workerSaga() {
-  // Описываем работу бизнес логики и любые асинхронные действия.
-  // const count = yield select(({ counter }) => counter.count);
-  // yield delay(2);
-  // console.log("request 1");
-  // console.log(`request ${count}`);
-  const data = yield getLatestNews();
-  console.log(data);
+export function* handlePopularNews() {
+  const { hits } = yield call(getPopularNews);
+  yield put(setPopularNews(hits));
+}
+
+export function* handleNews() {
+  yield fork(handleLatestNews);
+  yield fork(handlePopularNews);
 }
 
 export function* watchClickSaga() {
   // Слежение за акшенами, которые срабатывают в приложении.
-  yield takeEvery(GET_LATEST_NEWS, workerSaga);
-
-  // yield takeEvery(INCREASE_COUNT, workerSaga);
-  // yield takeLatest(INCREASE_COUNT, workerSaga);
-  // yield takeLeading(INCREASE_COUNT, workerSaga);
-
-  // yield take(DECREASE_COUNT);
-  // console.log("request 2");
-
-  // yield;
+  yield takeEvery(GET_NEWS, handleNews);
 }
 
 export default function* rootSaga() {

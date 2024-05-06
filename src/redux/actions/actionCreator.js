@@ -1,11 +1,11 @@
-import {
-  INCREASE_COUNT,
-  DECREASE_COUNT,
-  GET_LATEST_NEWS,
-} from "../constants.js";
+import { type } from "@testing-library/user-event/dist/type/index.js";
+import { SET_LATEST_NEWS, SET_POPULAR_NEWS, GET_NEWS } from "../constants.js";
 
-export const increaseCount = () => ({ type: INCREASE_COUNT });
+export const setLatestNews = (payload) => ({ type: SET_LATEST_NEWS, payload });
 
-export const decreaseCount = () => ({ type: DECREASE_COUNT });
+export const setPopularNews = (payload) => ({
+  type: SET_POPULAR_NEWS,
+  payload,
+});
 
-export const getLatestNews = () => ({ type: GET_LATEST_NEWS });
+export const getNews = () => ({ type: GET_NEWS });
