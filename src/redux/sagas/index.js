@@ -3,9 +3,11 @@ import {
   put,
   call,
   fork,
+  all,
 } from "@redux-saga/core/effects";
 import {
-  GET_NEWS,
+  GET_POPULAR_NEWS,
+  GET_LATEST_NEWS,
   SET_POPULAR_NEWS_ERROR,
   SET_LATEST_NEWS_ERROR,
 } from "../constants";
@@ -36,16 +38,16 @@ export function* handlePopularNews() {
   }
 }
 
-export function* handleNews() {
-  yield fork(handleLatestNews);
-  yield fork(handlePopularNews);
+export function* watchPopularSaga() {
+  // Слежение за экшенами, которые срабатывают в приложении.
+  yield takeEvery(GET_POPULAR_NEWS, handlePopularNews);
 }
 
-export function* watchClickSaga() {
-  // Слежение за акшенами, которые срабатывают в приложении.
-  yield takeEvery(GET_NEWS, handleNews);
+export function* watchLatestSaga() {
+  // Слежение за экшенами, которые срабатывают в приложении.
+  yield takeEvery(GET_POPULAR_NEWS, handleLatestNews);
 }
 
 export default function* rootSaga() {
-  yield watchClickSaga();
+  yield all([fork(watchLatestSaga), fork(watchPopularSaga)]);
 }
