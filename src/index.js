@@ -5,57 +5,24 @@ import store from "./redux/store";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Router } from "react-router";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  BrowserRouter,
-  Routes,
-} from "react-router-dom";
-// import { createBrowserHistory } from "history";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Home from "./pages/home/home";
 import LatestNews from "./pages/latest-news/latest-news";
 import PopularNews from "./pages/popular-news/popular-news";
-
-// const history = createBrowserHistory();
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <App />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Home />,
-//       },
-//       {
-//         path: "/latest-news",
-//         element: <LatestNews />,
-//       },
-//       {
-//         path: "/popular-news",
-//         element: <PopularNews />,
-//       },
-//     ],
-//   },
-// ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <RouterProvider router={(router = [])}> */}
-      {/* <App> */}
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/latest-news" element={<LatestNews />} />
-          <Route path="/popular-news" element={<PopularNews />} />
-        </Routes>
+        <App>
+          <Routes>
+            <Route path="/*" element={<Home />} />
+            <Route path="/latest-news" element={<LatestNews />} />
+            <Route path="/popular-news" element={<PopularNews />} />
+          </Routes>
+        </App>
       </BrowserRouter>
-      {/* </App> */}
-      {/* </RouterProvider> */}
     </Provider>
   </React.StrictMode>,
 );

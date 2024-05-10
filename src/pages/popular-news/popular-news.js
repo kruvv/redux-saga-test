@@ -14,8 +14,6 @@ const App = () => {
 
   return (
     <div>
-      <h1>Popular News</h1>
-
       <News news={popularNews} error={popularNewsError} title="Popular News" />
     </div>
   );
