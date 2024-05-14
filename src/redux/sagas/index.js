@@ -45,7 +45,7 @@ export function* watchPopularSaga() {
 
 export function* watchLatestSaga() {
   // Слежение за экшенами, которые срабатывают в приложении.
-  yield takeEvery(GET_POPULAR_NEWS, handleLatestNews);
+  yield takeEvery(GET_LATEST_NEWS, handleLatestNews);
 }
 
 export default function* rootSaga() {
